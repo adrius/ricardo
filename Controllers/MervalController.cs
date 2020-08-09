@@ -5,10 +5,10 @@ using System.Runtime.Caching;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ricardo.Contracts;
-using ricardo.Datasources;
+using adrius.ricardo.Contracts;
+using adrius.ricardo.Datasources;
 
-namespace ricardo.Controllers
+namespace adrius.ricardo.Controllers
 {
     [ApiController]
     public class MervalController : ControllerBase
@@ -22,25 +22,29 @@ namespace ricardo.Controllers
         {
             _logger = logger;
             _cache = cache;
-            Console.WriteLine($"{this.GetType().FullName} constructor");
-            _logger.LogInformation($"{this.GetType().FullName} constructor");
         }
 
         [HttpGet]
-        [Route("[controller]/mep/{fecha}")]
+        [Route("[controller]/mep/{Fecha}")]
         public async Task<IActionResult> MEP(string Fecha)
         {
+            _logger.LogTrace($"GET /merval/mep/{Fecha}");
             var key = $"MEP/{Fecha.ToString()}";
             var value = _cache.Get(key);
 
-            if (value!=null)
+            if (value!=null) {
+                _logger.LogInformation($"cache hit. Result: {(decimal)value}");
                 return Ok((decimal)value);
+            }
+                
 
             try {
                 var newValue = await this.getMepRate(Fecha);
                 this._cache[key] = newValue;
+                _logger.LogInformation($"cache miss. Result: {(decimal)newValue}");
                 return Ok(newValue);
-            } catch (Exception) {
+            } catch (Exception ex) {
+                _logger.LogError($"Error getting rate. Ex: {ex.Message}\n{ex.StackTrace}");
                 return BadRequest();
             }
 

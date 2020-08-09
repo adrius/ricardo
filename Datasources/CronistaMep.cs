@@ -4,9 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using ricardo.Contracts;
+using adrius.ricardo.Contracts;
 
-namespace ricardo.Datasources
+namespace adrius.ricardo.Datasources
 {
     public class CronistaMep : IMepExchange
     {

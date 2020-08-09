@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Runtime.Caching;
 
-namespace ricardo
+namespace adrius.ricardo
 {
     public class Startup
     {
