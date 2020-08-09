@@ -40,7 +40,7 @@ namespace ricardo.Controllers
                 var newValue = await this.getMepRate(Fecha);
                 this._cache[key] = newValue;
                 return Ok(newValue);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 return BadRequest();
             }
 
