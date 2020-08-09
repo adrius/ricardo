@@ -21,11 +21,14 @@ namespace ricardo.Datasources
                 .Replace("{DD}", RateAtDate.Day.ToString("D2"));
 
 
-            var resultString = await client.GetStringAsync(url);
+            //var resultString = await client.GetStringAsync(url);
 
             var result = await client.GetStreamAsync(url);
 
             var rateData = await JsonSerializer.DeserializeAsync<CronistaMepDto>(result);
+
+            if (rateData.historico.Count==0)
+                return ((rateData.monedas.Compra + rateData.monedas.Venta) / 2 );
 
             return ((rateData.historico[0].Compra + rateData.historico[0].Venta) / 2 );
         }
