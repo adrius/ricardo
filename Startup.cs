@@ -18,6 +18,10 @@ namespace adrius.ricardo
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            Console.WriteLine("Enumerating available options:");
+            foreach (var item in Configuration.AsEnumerable())
+                Console.WriteLine($"{item.Key} : {item.Value}");
         }
 
         public IConfiguration Configuration { get; }
