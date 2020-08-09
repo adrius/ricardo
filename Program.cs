@@ -13,6 +13,7 @@ namespace ricardo
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine($"{this.GetType().FullName} main");
             CreateHostBuilder(args).Build().Run();
         }
 

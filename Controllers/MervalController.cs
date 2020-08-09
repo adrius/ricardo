@@ -22,11 +22,12 @@ namespace ricardo.Controllers
         {
             _logger = logger;
             _cache = cache;
+            Console.WriteLine($"{this.GetType().FullName} constructor");
             _logger.LogInformation($"{this.GetType().FullName} constructor");
         }
 
         [HttpGet]
-        [Route("[controller]/{fecha}")]
+        [Route("[controller]/mep/{fecha}")]
         public async Task<IActionResult> MEP(string Fecha)
         {
             var key = $"MEP/{Fecha.ToString()}";
