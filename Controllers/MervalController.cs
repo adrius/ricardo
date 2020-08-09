@@ -59,6 +59,9 @@ namespace ricardo.Controllers
             if (!(fecha.Year==Y && fecha.Month==M && fecha.Day==D))
                 throw new ArgumentException(Fecha);
 
+            if (fecha > DateTime.Today)
+                throw new ArgumentException(Fecha);
+                
             IMepExchange datasource = new CronistaMep();
             var rate = await datasource.RetrieveRateAsync(fecha);
             return rate;
