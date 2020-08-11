@@ -26,10 +26,10 @@ namespace adrius.ricardo.Controllers
 
         [HttpGet]
         [Route("[controller]/mep/{Fecha}")]
-        public async Task<IActionResult> MEP(string Fecha)
+        public async Task<IActionResult> MEP(string Fecha, string Provider = "ambito")
         {
             _logger.LogTrace($"GET /merval/mep/{Fecha}");
-            var key = $"MEP/{Fecha.ToString()}";
+            var key = $"MEP/{Fecha.ToString()}+{Provider}";
             var value = _cache.Get(key);
 
             if (value!=null) {
@@ -39,7 +39,7 @@ namespace adrius.ricardo.Controllers
                 
 
             try {
-                var newValue = await this.getMepRate(Fecha);
+                var newValue = await this.getMepRate(Fecha, Provider);
                 this._cache[key] = newValue;
                 _logger.LogInformation($"cache miss. Result: {(decimal)newValue}");
                 return Ok(newValue);
@@ -50,7 +50,7 @@ namespace adrius.ricardo.Controllers
 
         }
 
-        protected async Task<decimal> getMepRate(string Fecha) {
+        protected async Task<decimal> getMepRate(string Fecha, string Provider) {
             if (Fecha.Length!=8)
                 throw new ArgumentException(Fecha);
 
@@ -66,7 +66,17 @@ namespace adrius.ricardo.Controllers
             if (fecha > DateTime.Today)
                 throw new ArgumentException(Fecha);
                 
-            IMepExchange datasource = new AmbitoMep();
+            IMepExchange datasource;
+            switch (Provider.ToLower())
+            {
+                case "ambito":
+                    datasource = new AmbitoMep(); break;
+                case "cronista":
+                    datasource = new CronistaMep(); break;
+                default:
+                    throw new Exception();
+
+            }
             var rate = await datasource.RetrieveRateAsync(fecha);
             return rate;
         }
