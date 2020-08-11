@@ -28,9 +28,11 @@ namespace adrius.ricardo.Datasources
             var result = await client.GetStreamAsync(url);
             var rateData = await JsonSerializer.DeserializeAsync<List<List<string>>>(result);
 
-            Decimal.TryParse(rateData.Where( group => group.Contains($"{RateAtDate.Day.ToString("D2")}-{RateAtDate.Month.ToString("D2")}-{RateAtDate.Year.ToString("D4")}")).First().Where( item => !item.Contains("-")).First(), out var rate);
-
-            return rate;
+            var rate  = (rateData.Where( group => group.Contains($"{RateAtDate.Day.ToString("D2")}-{RateAtDate.Month.ToString("D2")}-{RateAtDate.Year.ToString("D4")}")).First().Where( item => !item.Contains("-")).First());
+            rate = rate.Replace(",",".");
+            Decimal.TryParse(rate, out var rateDecimal);
+            
+            return rateDecimal;
             
         }
     }
