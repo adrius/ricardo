@@ -13,7 +13,7 @@ namespace adrius.ricardo
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine($"main");
+            Console.WriteLine($"Ricardo Ricón is starting up!");
             CreateHostBuilder(args).Build().Run();
         }
 

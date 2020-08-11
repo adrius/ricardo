@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Runtime.Caching;
+using System.IO;
 
 namespace adrius.ricardo
 {
@@ -29,9 +30,13 @@ namespace adrius.ricardo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            var cachePath = Configuration.GetValue<string>("CACHE_PATH", 
+                Path.Combine(Directory.GetCurrentDirectory(), "FileCache")
+            );
+
             services.AddControllers();
-            var fileCache = new FileCache(FileCacheManagers.Basic);
+            Console.WriteLine( $"Cache at: {cachePath}" );
+            var fileCache = new FileCache(cachePath);
             services.AddSingleton(fileCache.GetType(), fileCache);
         }
 
