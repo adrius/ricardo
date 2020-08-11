@@ -66,7 +66,7 @@ namespace adrius.ricardo.Controllers
             if (fecha > DateTime.Today)
                 throw new ArgumentException(Fecha);
                 
-            IMepExchange datasource = new CronistaMep();
+            IMepExchange datasource = new AmbitoMep();
             var rate = await datasource.RetrieveRateAsync(fecha);
             return rate;
         }
