@@ -22,7 +22,7 @@ namespace adrius.ricardo
 
             Console.WriteLine("Enumerating available options:");
             foreach (var item in Configuration.AsEnumerable())
-                Console.WriteLine($"{item.Key} : {item.Value}");
+                Console.WriteLine($"📌 {item.Key} : {item.Value}");
         }
 
         public IConfiguration Configuration { get; }
