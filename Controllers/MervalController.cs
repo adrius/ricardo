@@ -50,14 +50,6 @@ namespace adrius.ricardo.Controllers
 
         }
 
-
-        [HttpGet]
-        [Route("[controller]/david")]
-        public IActionResult David()
-        {
-            return Ok("hello david");
-        }
-
         protected async Task<decimal> getMepRate(string Fecha, string Provider) {
             
             if (Fecha.Length!=8)
