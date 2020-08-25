@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster-arm32v7 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 
 RUN ECHO "adrius::apt-get"
@@ -16,7 +16,7 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -r linux-arm -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-arm32v7
