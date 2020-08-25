@@ -1,5 +1,7 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster-arm64v8 AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic-arm32v7 AS build-env
 WORKDIR /app
+
+RUN apt-get install util-linux
 
 RUN ECHO "adrius::cpu"
 RUN lscpu 
@@ -16,7 +18,7 @@ COPY . ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-arm64v8
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic-arm32v7
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "ricardo.dll"]
