@@ -1,12 +1,12 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 WORKDIR /app
 
-RUN ECHO "adrius::apt-get"
+RUN ECHO 'adrius::apt-get'
 RUN apt-get install util-linux
 
-RUN ECHO "adrius::cpu"
+RUN ECHO 'adrius::cpu'
 RUN lscpu 
-RUN ECHO "adrius::dotnet info"
+RUN ECHO 'adrius::dotnet info'
 RUN dotnet --info
 
 
