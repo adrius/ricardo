@@ -1,8 +1,11 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster-arm64v8 AS build-env
 WORKDIR /app
 
-RUN dotnet --info
+RUN ECHO "adrius::cpu"
 RUN lscpu 
+RUN ECHO "adrius::dotnet info"
+RUN dotnet --info
+
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
