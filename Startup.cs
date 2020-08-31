@@ -35,7 +35,7 @@ namespace adrius.ricardo
             );
 
             services.AddControllers();
-            Console.WriteLine( $"Cache at: {cachePath}" );
+            Console.WriteLine( $"♻ Cache at: {cachePath}" );
             var fileCache = new FileCache(cachePath);
             services.AddSingleton(fileCache.GetType(), fileCache);
         }

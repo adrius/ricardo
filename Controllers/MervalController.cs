@@ -44,7 +44,7 @@ namespace adrius.ricardo.Controllers
                 _logger.LogInformation($"cache miss. Result: {(decimal)newValue}");
                 return Ok(newValue);
             } catch (Exception ex) {
-                _logger.LogError($"Error getting rate. Ex: {ex.Message}\n{ex.StackTrace}");
+                _logger.LogError($"Error getting rate. /{Fecha}?provider={Provider} Ex: {ex.Message}\n{ex.StackTrace}");
                 return BadRequest();
             }
 
