@@ -14,6 +14,8 @@ namespace adrius.ricardo
         public static void Main(string[] args)
         {
             Console.WriteLine($"💰 Ricardo Ricón is starting up!");
+            Console.WriteLine($"🖥️ Host platform: {System.Environment.OSVersion} ({(System.Environment.Is64BitOperatingSystem ? "64 bits" : "32 bits")})" );
+            Console.WriteLine($"⚙️ .net {System.Environment.Version}");
             CreateHostBuilder(args).Build().Run();
         }
 
